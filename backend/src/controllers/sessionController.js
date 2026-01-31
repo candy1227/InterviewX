@@ -45,10 +45,10 @@ export async function createSession(req, res) {
         res.status(201).json({ session })
 
     } catch (error) {
-        console.error("Error in createSession controller:", error);
+        console.error("FATAL: Error in createSession controller:", error);
         res.status(500).json({
             message: "Internal Server Error",
-            error: process.env.NODE_ENV === "development" ? error.message : undefined
+            error: process.env.NODE_ENV === "development" ? error.message : "Check server logs"
         });
     }
 }
@@ -140,7 +140,7 @@ export async function joinSession(req, res) {
 
         res.status(200).json({ session });
     } catch (error) {
-        console.log("Error in joinSession controller:", error.message);
+        console.error("FATAL: Error in joinSession controller:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 }

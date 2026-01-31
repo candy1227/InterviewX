@@ -14,17 +14,30 @@ export const streamClient = new StreamClient(apiKey, apiSecret); // will be used
 
 export const upsetStreamUser = async (userData) => {
     try {
+        if (!userData.id || !userData.name) {
+            console.error("Missing required user data for Stream upsert", userData);
+            return;
+        }
+
+        // 1. Sync with Chat SDK
         await chatClient.upsertUser(userData);
-        console.log("Stream user upserted successfully:", userData);
+
+        // 2. Sync with Video SDK (StreamClient)
+        // Note: Video SDK upsert is slightly different - it's idempotent
+        await streamClient.upsertUsers([userData]);
+
+        console.log("Stream user upserted successfully to both SDKs:", userData.id);
     } catch (error) {
-        console.error("Error upserting Stream user:", error);
+        console.error("Error upserting Stream user:", error.message);
+        // Throw the error so the controller can catch it and return 500
+        throw error;
     }
 };
 
 export const deleteStreamUser = async (userId) => {
     try {
         await chatClient.deleteUser(userId);
-        console.log("Stream user deleted successfully:",userId);
+        console.log("Stream user deleted successfully:", userId);
     } catch (error) {
         console.error("Error deleting Stream user:", error);
     }
