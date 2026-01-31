@@ -1,21 +1,21 @@
 import mongoose from "mongoose";
 
-const sessionSchema= new mongoose.Schema({
+const sessionSchema = new mongoose.Schema({
     problem: {
         type: String,
         required: true,
     },
     difficulty: {
         type: String,
-        enum: ["easy","medium","hard"],
-        required:true
+        enum: ["easy", "medium", "hard"],
+        required: true
     },
     host: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true
+        ref: "User",
+        required: true
     },
-    participants: {
+    participant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         default: null,
@@ -30,11 +30,11 @@ const sessionSchema= new mongoose.Schema({
         type: String,
         default: "",
     },
-  },
-  { timestamps: true }
+},
+    { timestamps: true }
 );
 
-const Session = mongoose.model("Session",sessionSchema)
+const Session = mongoose.model("Session", sessionSchema)
 
 export default Session
 

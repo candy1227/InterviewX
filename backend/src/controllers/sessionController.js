@@ -1,4 +1,4 @@
-import { streamClient, chatClient } from "../lib/stream.js";
+import { streamClient, chatClient, upsetStreamUser } from "../lib/stream.js";
 import Session from "../models/Session.js";
 
 export async function createSession(req, res) {
@@ -10,6 +10,13 @@ export async function createSession(req, res) {
         if (!problem || !difficulty) {
             return res.status(400).json({ message: "Problem and difficulty are required" })
         }
+
+        // safety upsert - ensure host exists in stream
+        await upsetStreamUser({
+            id: clerkId,
+            name: req.user.name,
+            image: req.user.profileImage,
+        });
 
         // generate a unique call id for stream video
         const callId = `session_${Date.now()}_${Math.random().toString(36).substring(7)}`
@@ -38,8 +45,11 @@ export async function createSession(req, res) {
         res.status(201).json({ session })
 
     } catch (error) {
-        console.log("Error in createSession controller:", error.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        console.error("Error in createSession controller:", error);
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: process.env.NODE_ENV === "development" ? error.message : undefined
+        });
     }
 }
 
@@ -114,6 +124,13 @@ export async function joinSession(req, res) {
         // check if session is already full - has a participant 
         if (session.participant) return res.status(409).json({ message: "Session is full" });
 
+
+        // safety upsert - ensure participant exists in stream
+        await upsetStreamUser({
+            id: clerkId,
+            name: req.user.name,
+            image: req.user.profileImage,
+        });
 
         session.participant = userId;
         await session.save();
