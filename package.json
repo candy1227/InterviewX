@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/candy1227/InterviewX.git"
+    "url": "git+https://github.com/IshaPatel24/InterviewX.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Isha Patel",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/candy1227/InterviewX/issues"
+    "url": "https://github.com/IshaPatel24/InterviewX/issues"
   },
-  "homepage": "https://github.com/candy1227/InterviewX#readme"
+  "homepage": "https://github.com/IshaPatel24/InterviewX#readme"
 }

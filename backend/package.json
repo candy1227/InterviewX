@@ -9,7 +9,7 @@
   },
   "type": "module",
   "keywords": [],
-  "author": "",
+  "author": "Isha Patel",
   "license": "ISC",
   "dependencies": {
     "@clerk/express": "^1.7.41",

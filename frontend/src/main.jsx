@@ -7,7 +7,6 @@ import { BrowserRouter } from "react-router";
 import { 
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query';
 
 // Import your Publishable Key
@@ -21,12 +20,12 @@ const queryClient = new QueryClient()
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowseRouter>
+    <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
           <App />
         </ClerkProvider>
       </QueryClientProvider>
-    </BrowseRouter>
+    </BrowserRouter>
   </StrictMode>
 );

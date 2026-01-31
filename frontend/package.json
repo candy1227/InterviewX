@@ -2,9 +2,10 @@
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
+  "author": "Isha Patel",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3001",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

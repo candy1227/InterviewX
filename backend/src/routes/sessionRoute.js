@@ -1,6 +1,6 @@
 import express from "express";
 import { protectRoute } from "../middleware/protectRoute.js";
-import { 
+import {
     createSession,
     endSession,
     getActiveSessions,
@@ -12,13 +12,13 @@ import {
 
 const router = express.Router();
 
-router.post("/", protective ,createSession);
-router.get("/active", protectRoute ,getActiveSessions);
-router.get("/my-recent", protectRoute ,getMyRecentSessions);
+router.post("/", protectRoute, createSession);
+router.get("/active", protectRoute, getActiveSessions);
+router.get("/my-recent", protectRoute, getMyRecentSessions);
 
-router.get("/:id", protectiveRoute ,getSessionById);
-router.post("/:id/join", protectRoute ,joinSession);
-router.get("/:id", protectRoute ,getSessionById);
+router.get("/:id", protectRoute, getSessionById);
+router.post("/:id/join", protectRoute, joinSession);
+router.get("/:id", protectRoute, getSessionById);
 
 
 export default router;

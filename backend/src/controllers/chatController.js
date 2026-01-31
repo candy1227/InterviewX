@@ -1,4 +1,4 @@
-import { charClient } from "../lib/stream.js";
+import { chatClient } from "../lib/stream.js";
 
 export async function getStreamToken(req, res) {
     try {
@@ -11,8 +11,8 @@ export async function getStreamToken(req, res) {
             userName: req.user.name,
             userImage: req.user.image,
         });
-    }  catch (error) {
-       console.log("Error in getStreamToken controller:", error.message);
-       res.status(500).json({ message: "Internal Server Error" });
+    } catch (error) {
+        console.log("Error in getStreamToken controller:", error.message);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
