@@ -7,18 +7,17 @@ const apiSecret = ENV.STREAM_API_SECRET;
 
 if (!apiKey || !apiSecret) {
     console.error("STREAM_API_KEY or STREAM_API_SECRET is missing");
-    throw new Error("Stream credentials are required");
 }
 
 let chatClient;
 let streamClient;
 
 try {
-    chatClient = StreamChat.getInstance(apiKey, apiSecret); // will be used for chat features
-    streamClient = new StreamClient(apiKey, apiSecret); // will be used for video calls
+    chatClient = StreamChat.getInstance(apiKey, apiSecret);
+    streamClient = new StreamClient(apiKey, apiSecret);
+    console.log("Stream clients initialized successfully");
 } catch (error) {
     console.error("Failed to initialize Stream clients:", error);
-    throw error;
 }
 
 export { chatClient, streamClient };
@@ -28,6 +27,11 @@ export const upsetStreamUser = async (userData) => {
         if (!userData.id || !userData.name) {
             console.error("Missing required user data for Stream upsert", userData);
             return;
+        }
+
+        if (!chatClient || !streamClient) {
+            console.error("Stream clients not initialized");
+            throw new Error("Stream clients not available");
         }
 
         // 1. Sync with Chat SDK
