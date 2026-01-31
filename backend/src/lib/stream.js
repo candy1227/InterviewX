@@ -23,8 +23,12 @@ export const upsetStreamUser = async (userData) => {
         await chatClient.upsertUser(userData);
 
         // 2. Sync with Video SDK (StreamClient)
-        // Note: Video SDK upsert is slightly different - it's idempotent
-        await streamClient.upsertUsers([userData]);
+        // Video SDK uses upsertUsers with an object containing users array
+        await streamClient.upsertUsers({
+            users: {
+                [userData.id]: userData
+            }
+        });
 
         console.log("Stream user upserted successfully to both SDKs:", userData.id);
     } catch (error) {
